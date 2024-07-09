@@ -199,7 +199,7 @@ void test_full_be() {
     /* FixedValue */ current_fuse_l1,
     /* std::string */ message_long,
     /* uint16_t */ gas_device_type,
-    /* std::string */ equipment_id,
+    /* std::string */ gas_equipment_id_be,
     /* uint8_t */ gas_valve_position,
     /* TimestampedFixedValue */ gas_delivered_be
   > myData;
