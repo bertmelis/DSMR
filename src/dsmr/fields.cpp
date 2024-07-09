@@ -1,7 +1,8 @@
 /**
- * Arduino DSMR parser.
+ * DSMR parser.
  *
  * This software is licensed under the MIT License.
+ * Adapted for general use 2024 Bert Melis
  *
  * Copyright (c) 2015 Matthijs Kooijman <matthijs@stdin.nl>
  *

@@ -1,10 +1,6 @@
 #include <unity.h>
 
-#include <Packets/Parser.h>
-
-using espMqttClientInternals::Parser;
-using espMqttClientInternals::ParserResult;
-using espMqttClientInternals::IncomingPacket;
+#include <dsmr.h>
 
 void setUp() {}
 void tearDown() {}
