@@ -67,7 +67,7 @@ namespace dsmr
   {
     ParseResult<void> parse(const char *str, const char *end)
     {
-      ParseResult<std::tring> res = StringParser::parse_string(minlen, maxlen, str, end);
+      ParseResult<std::string> res = StringParser::parse_string(minlen, maxlen, str, end);
       if (!res.err)
         static_cast<T *>(this)->val() = res.result;
       return res;
