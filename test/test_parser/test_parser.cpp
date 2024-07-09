@@ -124,7 +124,7 @@ const char msg[] =
   TEST_ASSERT_EQUAL_UINT8(1, myData.electricity_switch_position);
   TEST_ASSERT_EQUAL_UINT32(8, myData.electricity_failures);
   TEST_ASSERT_EQUAL_UINT16(3, myData.gas_device_type);
-  TEST_ASSERT_EQUAL_STRING("150117180000W", myData.gas_delivered.timestamp().c_str());
+  TEST_ASSERT_EQUAL_STRING("150117180000W", myData.gas_delivered.timestamp.c_str());
   TEST_ASSERT_FLOAT_WITHIN(0.1, 473.789, myData.gas_delivered.val());
 }
 
