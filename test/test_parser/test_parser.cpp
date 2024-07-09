@@ -131,6 +131,6 @@ const char msg[] =
 int main() {
   UNITY_BEGIN();
   RUN_TEST(test_Short);
-  UN_TEST(test_full);
+  RUN_TEST(test_full);
   return UNITY_END();
 }
