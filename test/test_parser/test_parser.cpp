@@ -1,3 +1,5 @@
+#include <iostream>
+
 #include <unity.h>
 
 #include <dsmr.h>
@@ -114,6 +116,9 @@ void test_full() {
   > myData;
 
   ParseResult<void> res = P1Parser::parse(&myData, msg, lengthof(msg));
+  if (res.err) {
+    std::cout << res.fullError(msg, msg + lengthof(msg)) << std::endl;
+  }
 
   TEST_ASSERT_FALSE(res.err);
   // test each type only once
@@ -205,6 +210,9 @@ void test_full_be() {
   > myData;
 
   ParseResult<void> res = P1Parser::parse(&myData, msg, lengthof(msg));
+  if (res.err) {
+    std::cout << res.fullError(msg, msg + lengthof(msg)) << std::endl;
+  }
 
   TEST_ASSERT_FALSE(res.err);
 
