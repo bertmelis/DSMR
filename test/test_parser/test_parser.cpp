@@ -21,7 +21,7 @@ void test_Short() {
   ParseResult<void> res = P1Parser::parse(&myData, msg, lengthof(msg));
 
   TEST_ASSERT_FALSE(res.err);
-  TEST_ASSERT_EQUAL_STRING("KFM5KAIFA-METER", myData.identification.c_string());
+  TEST_ASSERT_EQUAL_STRING("KFM5KAIFA-METER", myData.identification.c_str());
   TEST_ASSERT_EQUAL_UINT32(318, myData.power_delivered.int_val());
   TEST_ASSERT_FLOAT_WITHIN(0.1, 0.318, myData.power_delivered.val());
 }
@@ -117,14 +117,14 @@ const char msg[] =
 
   TEST_ASSERT_FALSE(res.err);
   // test each type only once
-  TEST_ASSERT_EQUAL_STRING("150117185916W", myData.timestamp.c_string());
-  TEST_ASSERT_EQUAL_STRING("0001", myData.electricity_tariff.c_string());
+  TEST_ASSERT_EQUAL_STRING("150117185916W", myData.timestamp.c_str());
+  TEST_ASSERT_EQUAL_STRING("0001", myData.electricity_tariff.c_str());
   TEST_ASSERT_EQUAL_UINT32(671578, myData.energy_delivered_tariff1.int_val());  // part of FixedValue
   TEST_ASSERT_FLOAT_WITHIN(0.1, 671.578, myData.energy_delivered_tariff1.val());  // part of FixedValue
   TEST_ASSERT_EQUAL_UINT8(1, myData.electricity_switch_position);
   TEST_ASSERT_EQUAL_UINT32(8, myData.electricity_failures);
   TEST_ASSERT_EQUAL_UINT16(3, myData.gas_device_type);
-  TEST_ASSERT_EQUAL_STRING("150117180000W", myData.gas_delivered.timestamp().c_string());
+  TEST_ASSERT_EQUAL_STRING("150117180000W", myData.gas_delivered.timestamp().c_str());
   TEST_ASSERT_FLOAT_WITHIN(0.1, 473.789, myData.gas_delivered.val());
 }
 
