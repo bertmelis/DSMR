@@ -144,7 +144,7 @@ namespace dsmr
   {
     static ParseResult<std::string> parse_string(size_t min, size_t max, const char *str, const char *end)
     {
-      ParseResult<String> res;
+      ParseResult<std::string> res;
       if (str >= end || *str != '(')
         return res.fail("Missing (", str);
 

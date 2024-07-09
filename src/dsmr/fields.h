@@ -67,7 +67,7 @@ namespace dsmr
   {
     ParseResult<void> parse(const char *str, const char *end)
     {
-      ParseResult<String> res = StringParser::parse_string(minlen, maxlen, str, end);
+      ParseResult<std::tring> res = StringParser::parse_string(minlen, maxlen, str, end);
       if (!res.err)
         static_cast<T *>(this)->val() = res.result;
       return res;
@@ -147,7 +147,7 @@ namespace dsmr
     ParseResult<void> parse(const char *str, const char *end)
     {
       // First, parse timestamp
-      ParseResult<String> res = StringParser::parse_string(13, 13, str, end);
+      ParseResult<std::string> res = StringParser::parse_string(13, 13, str, end);
       if (res.err)
         return res;
 
@@ -168,7 +168,7 @@ namespace dsmr
       // we parse last entry 2 times
       const char *last = end;
 
-      ParseResult<String> res;
+      ParseResult<std::string> res;
       res.next = str;
 
       while (res.next != end)
@@ -577,10 +577,10 @@ namespace dsmr
 
     /* Image Core Version and checksum */
     DEFINE_FIELD(fw_core_version, FixedValue, ObisId(1, 0, 0, 2, 0), FixedField, units::none, units::none);
-    DEFINE_FIELD(fw_core_checksum, String, ObisId(1, 0, 0, 2, 8), StringField, 0, 8);
+    DEFINE_FIELD(fw_core_checksum, std::string, ObisId(1, 0, 0, 2, 8), StringField, 0, 8);
     /* Image Module Version and checksum */
     DEFINE_FIELD(fw_module_version, FixedValue, ObisId(1, 1, 0, 2, 0), FixedField, units::none, units::none);
-    DEFINE_FIELD(fw_module_checksum, String, ObisId(1, 1, 0, 2, 8), StringField, 0, 8);
+    DEFINE_FIELD(fw_module_checksum, std::string, ObisId(1, 1, 0, 2, 8), StringField, 0, 8);
       
   } // namespace fields
 

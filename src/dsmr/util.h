@@ -32,6 +32,7 @@
 #pragma once
 
 #include <string>  // std::string
+#include <cstring>  // memcpy
 
 namespace dsmr
 {
@@ -50,9 +51,9 @@ namespace dsmr
   {
     // Add null termination. Inefficient, but it works...
     char buf[n + 1];
-    memcpy(buf, append, n);
+    std::memcpy(buf, append, n);
     buf[n] = 0;
-    s.concat(buf);
+    s += buf;
   }
 
   /**
@@ -143,7 +144,7 @@ namespace dsmr
    */
     std::string fullError(const char *start, const char *end) const
     {
-      std::tring res;
+      std::string res;
       if (this->ctx && start && end)
       {
         // Find the entire line surrounding the context

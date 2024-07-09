@@ -23,7 +23,7 @@ void test_uint32_t() {
   ParseResult<void> res = P1Parser::parse(&myData, msg, lengthof(msg));
 
   TEST_ASSERT_FALSE(res.err);
-  TEST_ASSERT_EQUAL_UINT32(318, data.power_delivered.int_val());
+  TEST_ASSERT_EQUAL_UINT32(318, myData.power_delivered.int_val());
 }
 
 int main() {
