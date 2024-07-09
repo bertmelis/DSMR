@@ -294,7 +294,7 @@ namespace dsmr
 
     // Parse a crc value. str must point to the first of the four hex
     // bytes in the CRC.
-    static ParseResult<uint16_t> parse(const char *str, const char *end)
+    static ParseResult<uint16_t> parse(char *str, const char *end)
     {
       ParseResult<uint16_t> res;
       // This should never happen with the code in this library, but
@@ -328,7 +328,7 @@ namespace dsmr
    * pointer in the result will indicate the next unprocessed byte.
    */
     template <typename... Ts>
-    static ParseResult<void> parse(ParsedData<Ts...> *data, const char *str, size_t n, bool unknown_error = false,
+    static ParseResult<void> parse(ParsedData<Ts...> *data, char *str, size_t n, bool unknown_error = false,
                                    bool check_crc = true)
     {
       ParseResult<void> res;
@@ -385,7 +385,7 @@ namespace dsmr
    * checksum. Does not verify the checksum.
    */
     template <typename... Ts>
-    static ParseResult<void> parse_data(ParsedData<Ts...> *data, const char *str, const char *end,
+    static ParseResult<void> parse_data(ParsedData<Ts...> *data, char *str, const char *end,
                                         bool unknown_error = false)
     {
       ParseResult<void> res;
@@ -440,7 +440,7 @@ namespace dsmr
     }
 
     template <typename Data>
-    static ParseResult<void> parse_line(Data *data, const char *line, const char *end, bool unknown_error)
+    static ParseResult<void> parse_line(Data *data, char *line, const char *end, bool unknown_error)
     {
       ParseResult<void> res;
       if (line == end)
