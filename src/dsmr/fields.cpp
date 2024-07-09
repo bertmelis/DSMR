@@ -362,6 +362,9 @@ constexpr char gas_device_type::name[];
 constexpr ObisId gas_equipment_id::id;
 constexpr char gas_equipment_id::name[];
 
+constexpr ObisId gas_equipment_id_be::id;
+constexpr char gas_equipment_id_be::name[];
+
 constexpr ObisId gas_valve_position::id;
 constexpr char gas_valve_position::name[];
 
