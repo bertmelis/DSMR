@@ -5,8 +5,6 @@
 void setUp() {}
 void tearDown() {}
 
-Parser parser;
-
 void test_uint32_t() {
   const char msg[] =
     "/KFM5KAIFA-METER\r\n"
