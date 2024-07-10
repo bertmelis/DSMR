@@ -71,7 +71,7 @@ namespace dsmr
   struct ParsedData<>
   {
     ParseResult<void> __attribute__((__always_inline__))
-    parse_line_inlined(const ObisId & /* id */, const char *str, const char * /* end */)
+    parse_line_inlined(const ObisId & /* id */, char *str, const char * /* end */)
     {
       // Parsing succeeded, but found no matching handler (so return
       // set the next pointer to show nothing was parsed).
@@ -99,7 +99,7 @@ namespace dsmr
    * field with a matching id. If any, it calls it's parse method, which
    * parses the value and stores it in the field.
    */
-    ParseResult<void> parse_line(const ObisId &id, const char *str, const char *end)
+    ParseResult<void> parse_line(const ObisId &id, char *str, const char *end)
     {
       return parse_line_inlined(id, str, end);
     }
@@ -110,7 +110,7 @@ namespace dsmr
    * top-level parse_line method.
    */
     ParseResult<void> __attribute__((__always_inline__))
-    parse_line_inlined(const ObisId &id, const char *str, const char *end)
+    parse_line_inlined(const ObisId &id, char *str, const char *end)
     {
       if (id == T::id)
       {
