@@ -32,6 +32,7 @@
 #pragma once
 
 #include <cstring>  // memcpy
+#include <cstdint>  // uint8_t...
 #include <cstdlib>  // malloc
 
 namespace dsmr
