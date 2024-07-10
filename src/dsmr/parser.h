@@ -301,23 +301,15 @@ namespace dsmr
       ParseResult<uint16_t> res;
       // This should never happen with the code in this library, but
       // check anyway
-      if (str + CRC_LEN > end)
+      // add 1 to enable inline 0-termination
+      if (str + CRC_LEN > end + 1)
         return res.fail("No checksum found", str);
 
-      const char* toPrint = str;
-      while (toPrint != end) {
-        std::cout << toPrint << " ";
-        ++toPrint;
-      }
-      std::cout << std::endl;
-
-      // A bit of a messy way to parse the checksum, but all
-      // integer-parse functions assume nul-termination
-      char buf[CRC_LEN + 1];
-      memcpy(buf, str, CRC_LEN);
-      buf[CRC_LEN] = '\0';
+      // strtoul expects a 0-terminated string.
+      // in the input string, we expect a '\r' after the checksum
+      str[CRC_LEN] = '\0';
       char *endp;
-      uint16_t check = strtoul(buf, &endp, 16);
+      uint16_t check = strtoul(str, &endp, 16);
 
       // See if all four bytes formed a valid number
       if (endp != buf + CRC_LEN)
