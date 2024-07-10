@@ -147,7 +147,7 @@ namespace dsmr
         res.reserve((line_end - line_start) + 2 + (this->ctx - line_start) + 1 + 2);
 
         // Write the line
-        concat_hack(res, line_start, line_end - line_start);
+        res.append(line_start, line_end - line_start);
         res += "\r\n";
 
         // Write a marker to point out ctx

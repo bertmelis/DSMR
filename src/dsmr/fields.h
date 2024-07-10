@@ -144,7 +144,7 @@ namespace dsmr
   template <typename T, const char *_unit, const char *_int_unit>
   struct TimestampedFixedField : public FixedField<T, _unit, _int_unit>
   {
-    ParseResult<void> parse(const char *str, const char *end)
+    ParseResult<void> parse(char *str, const char *end)
     {
       // First, parse timestamp
       ParseResult<std::string> res = StringParser::parse_string(13, 13, str, end);
