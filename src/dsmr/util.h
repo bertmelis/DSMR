@@ -134,6 +134,7 @@ namespace dsmr
     const char * fullError(const char *start, const char *end) const
     {
       char *res;
+      size_t index = 0;
       if (this->ctx && start && end)
       {
         // Find the entire line surrounding the context
@@ -152,7 +153,6 @@ namespace dsmr
         res[length - 1] = '\0';
 
         // Write the line
-        size_t index = 0;
         memcpy(&res[index], line_start, line_end - line_start);
         index = line_end - line_start;
 
