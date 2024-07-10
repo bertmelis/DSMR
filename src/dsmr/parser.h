@@ -34,6 +34,8 @@
 #include "crc16.h"
 #include "util.h"
 
+#include <iostream>
+
 namespace dsmr
 {
 
@@ -301,6 +303,13 @@ namespace dsmr
       // check anyway
       if (str + CRC_LEN > end)
         return res.fail("No checksum found", str);
+
+      const char* toPrint = str;
+      while (toPrint != end) {
+        std::cout << toPrint << " ";
+        ++toPrint;
+      }
+      std::cout << std::endl;
 
       // A bit of a messy way to parse the checksum, but all
       // integer-parse functions assume nul-termination
