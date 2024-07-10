@@ -129,10 +129,8 @@ namespace dsmr
    * The start and end passed are the first and one-past-the-end
    * characters in the total parsed string. These are needed to properly
    * limit the context output.
-   *
-   * Attention! Caller is responsible to free returned pointer `free(res);`
    */
-    const char * fullError(const char *start, const char *end) const
+    char * fullError(const char *start, const char *end) const
     {
       char *res;
       size_t index = 0;
