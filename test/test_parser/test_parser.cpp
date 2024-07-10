@@ -24,7 +24,7 @@ void test_Short() {
   if (res.err) {
     const char* toPrint = res.fullError(msg, msg + lengthof(msg));
     std::cout << toPrint << std::endl;
-    free toPrint;
+    free(toPrint);
   }
 
   TEST_ASSERT_FALSE(res.err);
@@ -124,7 +124,7 @@ void test_full() {
   if (res.err) {
     const char* toPrint = res.fullError(msg, msg + lengthof(msg));
     std::cout << toPrint << std::endl;
-    free toPrint;
+    free(toPrint);
   }
 
   TEST_ASSERT_FALSE(res.err);
@@ -220,7 +220,7 @@ void test_full_be() {
   if (res.err) {
     const char* toPrint = res.fullError(msg, msg + lengthof(msg));
     std::cout << toPrint << std::endl;
-    free toPrint;
+    free(toPrint);
   }
 
   TEST_ASSERT_FALSE(res.err);
