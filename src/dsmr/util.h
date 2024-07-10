@@ -43,19 +43,6 @@ namespace dsmr
   template <typename T, unsigned int sz>
   inline unsigned int lengthof(const T (&)[sz]) { return sz; }
 
-  // Hack until https://github.com/arduino/Arduino/pull/1936 is merged.
-  // This appends the given number of bytes from the given C string to the
-  // given Arduino string, without requiring a trailing NUL.
-  // Requires that there _is_ room for nul-termination
-  static void concat_hack(std::string &s, const char *append, size_t n)
-  {
-    // Add null termination. Inefficient, but it works...
-    char buf[n + 1];
-    std::memcpy(buf, append, n);
-    buf[n] = 0;
-    s += buf;
-  }
-
   /**
  * The ParseResult<T> class wraps the result of a parse function. The type
  * of the result is passed as a template parameter and can be void to

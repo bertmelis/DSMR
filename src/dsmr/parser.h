@@ -142,7 +142,7 @@ namespace dsmr
 
   struct StringParser
   {
-    static ParseResult<std::string> parse_string(size_t min, size_t max, const char *str, const char *end)
+    static ParseResult<std::string> parse_string(size_t min, size_t max, char *str, const char *end)
     {
       ParseResult<std::string> res;
       if (str >= end || *str != '(')
@@ -161,7 +161,7 @@ namespace dsmr
       if (len < min || len > max)
         return res.fail("Invalid string length", str_start);
 
-      concat_hack(res.result, str_start, len);
+      res.result.append(str_start, len);
 
       return res.until(str_end + 1); // Skip )
     }
