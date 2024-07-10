@@ -31,6 +31,8 @@
 
 #pragma once
 
+#include <string>
+
 #include "util.h"
 #include "parser.h"
 

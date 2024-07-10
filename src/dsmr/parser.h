@@ -31,6 +31,8 @@
 
 #pragma once
 
+#include <string>
+
 #include "crc16.h"
 #include "util.h"
 
