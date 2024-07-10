@@ -22,7 +22,7 @@ void test_Short() {
 
   ParseResult<void> res = P1Parser::parse(&myData, msg, lengthof(msg));
   if (res.err) {
-    const char* toPrint = res.fullError(msg, msg + lengthof(msg));
+    char* toPrint = res.fullError(msg, msg + lengthof(msg));
     std::cout << toPrint << std::endl;
     free(toPrint);
   }
@@ -122,7 +122,7 @@ void test_full() {
 
   ParseResult<void> res = P1Parser::parse(&myData, msg, lengthof(msg));
   if (res.err) {
-    const char* toPrint = res.fullError(msg, msg + lengthof(msg));
+    char* toPrint = res.fullError(msg, msg + lengthof(msg));
     std::cout << toPrint << std::endl;
     free(toPrint);
   }
@@ -218,7 +218,7 @@ void test_full_be() {
 
   ParseResult<void> res = P1Parser::parse(&myData, msg, lengthof(msg));
   if (res.err) {
-    const char* toPrint = res.fullError(msg, msg + lengthof(msg));
+    char* toPrint = res.fullError(msg, msg + lengthof(msg));
     std::cout << toPrint << std::endl;
     free(toPrint);
   }
