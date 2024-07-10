@@ -207,7 +207,7 @@ namespace dsmr
     ParseResult<void> parse(const char *str, const char *end)
     {
       // Just copy the string verbatim value without any parsing
-      static_cast<T *>(this)->val().apend(str, end - str);
+      static_cast<T *>(this)->val().append(str, end - str);
       return ParseResult<void>().until(end);
     }
   };
