@@ -390,7 +390,8 @@ namespace dsmr
     {
       ParseResult<void> res;
       // Split into lines and parse those
-      const char *line_end = str, *line_start = str;
+      const char *line_end = str
+      char *line_start = str;
 
       // Parse ID line
       while (line_end < end)
