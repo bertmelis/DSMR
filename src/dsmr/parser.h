@@ -312,7 +312,7 @@ namespace dsmr
       uint16_t check = strtoul(str, &endp, 16);
 
       // See if all four bytes formed a valid number
-      if (endp != buf + CRC_LEN)
+      if (endp != str + CRC_LEN)
         return res.fail("Incomplete or malformed checksum", str);
 
       res.next = str + CRC_LEN;
