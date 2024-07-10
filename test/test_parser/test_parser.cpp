@@ -28,7 +28,7 @@ void test_Short() {
   }
 
   TEST_ASSERT_FALSE(res.err);
-  TEST_ASSERT_EQUAL_STRING("KFM5KAIFA-METER", myData.identification.c_str());
+  TEST_ASSERT_EQUAL_STRING("KFM5KAIFA-METER", myData.identification);
   TEST_ASSERT_EQUAL_UINT32(318, myData.power_delivered.int_val());
   TEST_ASSERT_FLOAT_WITHIN(0.1, 0.318, myData.power_delivered.val());
 }
@@ -129,14 +129,14 @@ void test_full() {
 
   TEST_ASSERT_FALSE(res.err);
   // test each type only once
-  TEST_ASSERT_EQUAL_STRING("150117185916W", myData.timestamp.c_str());
-  TEST_ASSERT_EQUAL_STRING("0001", myData.electricity_tariff.c_str());
+  TEST_ASSERT_EQUAL_STRING("150117185916W", myData.timestamp);
+  TEST_ASSERT_EQUAL_STRING("0001", myData.electricity_tariff);
   TEST_ASSERT_EQUAL_UINT32(671578, myData.energy_delivered_tariff1.int_val());  // part of FixedValue
   TEST_ASSERT_FLOAT_WITHIN(0.1, 671.578, myData.energy_delivered_tariff1.val());  // part of FixedValue
   TEST_ASSERT_EQUAL_UINT8(1, myData.electricity_switch_position);
   TEST_ASSERT_EQUAL_UINT32(8, myData.electricity_failures);
   TEST_ASSERT_EQUAL_UINT16(3, myData.gas_device_type);
-  TEST_ASSERT_EQUAL_STRING("150117180000W", myData.gas_delivered.timestamp.c_str());
+  TEST_ASSERT_EQUAL_STRING("150117180000W", myData.gas_delivered.timestamp);
   TEST_ASSERT_FLOAT_WITHIN(0.1, 473.789, myData.gas_delivered.val());
 }
 
@@ -225,7 +225,7 @@ void test_full_be() {
 
   TEST_ASSERT_FALSE(res.err);
 
-  TEST_ASSERT_EQUAL_STRING("50217", myData.p1_version_be.c_str());
+  TEST_ASSERT_EQUAL_STRING("50217", myData.p1_version_be);
   TEST_ASSERT_FLOAT_WITHIN(0.1, 8538.167, myData.gas_delivered_be.val());
 }
 
