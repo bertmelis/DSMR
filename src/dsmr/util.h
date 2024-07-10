@@ -32,7 +32,7 @@
 #pragma once
 
 #include <cstring>  // memcpy
-#include <memory>  // std::unique_ptr
+#include <cstdlib>  // malloc
 
 namespace dsmr
 {
