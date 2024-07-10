@@ -71,7 +71,7 @@ namespace dsmr
   struct ParsedData<>
   {
     ParseResult<void> __attribute__((__always_inline__))
-    parse_line_inlined(const ObisId & /* id */, char *str, const char * /* end */)
+    parse_line_inlined(const ObisId & /* id */, char *str, char * /* end */)
     {
       // Parsing succeeded, but found no matching handler (so return
       // set the next pointer to show nothing was parsed).
@@ -99,7 +99,7 @@ namespace dsmr
    * field with a matching id. If any, it calls it's parse method, which
    * parses the value and stores it in the field.
    */
-    ParseResult<void> parse_line(const ObisId &id, char *str, const char *end)
+    ParseResult<void> parse_line(const ObisId &id, char *str, char *end)
     {
       return parse_line_inlined(id, str, end);
     }
@@ -110,7 +110,7 @@ namespace dsmr
    * top-level parse_line method.
    */
     ParseResult<void> __attribute__((__always_inline__))
-    parse_line_inlined(const ObisId &id, char *str, const char *end)
+    parse_line_inlined(const ObisId &id, char *str, char *end)
     {
       if (id == T::id)
       {
@@ -142,14 +142,14 @@ namespace dsmr
 
   struct StringParser
   {
-    static ParseResult<std::string> parse_string(size_t min, size_t max, char *str, const char *end)
+    static ParseResult<std::string> parse_string(size_t min, size_t max, char *str, char *end)
     {
       ParseResult<std::string> res;
       if (str >= end || *str != '(')
         return res.fail("Missing (", str);
 
-      const char *str_start = str + 1; // Skip (
-      const char *str_end = str_start;
+      char *str_start = str + 1; // Skip (
+      char *str_end = str_start;
 
       while (str_end < end && *str_end != ')')
         ++str_end;
@@ -175,14 +175,14 @@ namespace dsmr
 
   struct NumParser
   {
-    static ParseResult<uint32_t> parse(size_t max_decimals, const char *unit, const char *str, const char *end)
+    static ParseResult<uint32_t> parse(size_t max_decimals, const char *unit, char *str, char *end)
     {
       ParseResult<uint32_t> res;
       if (str >= end || *str != '(')
         return res.fail("Missing (", str);
 
-      const char *num_start = str + 1; // Skip (
-      const char *num_end = num_start;
+      char *num_start = str + 1; // Skip (
+      char *num_end = num_start;
 
       uint32_t value = 0;
 
@@ -239,7 +239,7 @@ namespace dsmr
 
   struct ObisIdParser
   {
-    static ParseResult<ObisId> parse(const char *str, const char *end)
+    static ParseResult<ObisId> parse(char *str, char *end)
     {
       // Parse a Obis ID of the form 1-2:3.4.5.6
       // Stops parsing on the first unrecognized character. Any unparsed
@@ -294,7 +294,7 @@ namespace dsmr
 
     // Parse a crc value. str must point to the first of the four hex
     // bytes in the CRC.
-    static ParseResult<uint16_t> parse(char *str, const char *end)
+    static ParseResult<uint16_t> parse(char *str, char *end)
     {
       ParseResult<uint16_t> res;
       // This should never happen with the code in this library, but
@@ -384,7 +384,7 @@ namespace dsmr
    * checksum. Does not verify the checksum.
    */
     template <typename... Ts>
-    static ParseResult<void> parse_data(ParsedData<Ts...> *data, char *str, const char *end,
+    static ParseResult<void> parse_data(ParsedData<Ts...> *data, char *str, char *end,
                                         bool unknown_error = false)
     {
       ParseResult<void> res;
@@ -439,7 +439,7 @@ namespace dsmr
     }
 
     template <typename Data>
-    static ParseResult<void> parse_line(Data *data, char *line, const char *end, bool unknown_error)
+    static ParseResult<void> parse_line(Data *data, char *line, char *end, bool unknown_error)
     {
       ParseResult<void> res;
       if (line == end)

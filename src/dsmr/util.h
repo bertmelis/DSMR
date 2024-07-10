@@ -112,7 +112,7 @@ namespace dsmr
       this->ctx = ctx;
       return *this;
     }
-    ParseResult &until(const char *next)
+    ParseResult &until(char *next)
     {
       this->next = next;
       return *this;
