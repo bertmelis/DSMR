@@ -34,8 +34,6 @@
 #include "crc16.h"
 #include "util.h"
 
-#include <iostream>
-
 namespace dsmr
 {
 
