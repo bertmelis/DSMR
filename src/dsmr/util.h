@@ -146,7 +146,7 @@ namespace dsmr
 
         // We can now predict the context string length, so let String allocate
         // memory in advance
-        size_t length = (line_end - line_start) + 2 + (this->ctx - line_start) + 1 + 2;
+        size_t length = (line_end - line_start) + 2 + (this->ctx - line_start) + 1 + 2 + 1;
         res = reinterpret_cast<char*>(malloc(length));
         if (!res) return res;
         res[length - 1] = '\0';
