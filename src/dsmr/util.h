@@ -102,7 +102,7 @@ namespace dsmr
   template <typename T>
   struct ParseResult : public _ParseResult<ParseResult<T>, T>
   {
-    const char *next = NULL;
+    char *next = NULL;
     const char *err = NULL;
     const char *ctx = NULL;
 
