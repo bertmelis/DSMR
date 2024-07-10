@@ -65,7 +65,7 @@ namespace dsmr
   template <typename T, size_t minlen, size_t maxlen>
   struct StringField : ParsedField<T>
   {
-    ParseResult<void> parse(const char *str, const char *end)
+    ParseResult<void> parse(char *str, const char *end)
     {
       ParseResult<std::string> res = StringParser::parse_string(minlen, maxlen, str, end);
       if (!res.err)
@@ -163,7 +163,7 @@ namespace dsmr
   template <typename T, const char *_unit, const char *_int_unit>
   struct LastFixedField : public FixedField<T, _unit, _int_unit>
   {
-    ParseResult<void> parse(const char *str, const char *end)
+    ParseResult<void> parse(char *str, const char *end)
     {
       // we parse last entry 2 times
       const char *last = end;
