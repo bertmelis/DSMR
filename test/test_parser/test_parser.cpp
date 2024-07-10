@@ -21,6 +21,11 @@ void test_Short() {
   > myData;
 
   ParseResult<void> res = P1Parser::parse(&myData, msg, lengthof(msg));
+  if (res.err) {
+    const char* toPrint = res.fullError(msg, msg + lengthof(msg));
+    std::cout << toPrint << std::endl;
+    free toPrint;
+  }
 
   TEST_ASSERT_FALSE(res.err);
   TEST_ASSERT_EQUAL_STRING("KFM5KAIFA-METER", myData.identification.c_str());
@@ -117,7 +122,9 @@ void test_full() {
 
   ParseResult<void> res = P1Parser::parse(&myData, msg, lengthof(msg));
   if (res.err) {
-    std::cout << res.fullError(msg, msg + lengthof(msg)) << std::endl;
+    const char* toPrint = res.fullError(msg, msg + lengthof(msg));
+    std::cout << toPrint << std::endl;
+    free toPrint;
   }
 
   TEST_ASSERT_FALSE(res.err);
@@ -211,7 +218,9 @@ void test_full_be() {
 
   ParseResult<void> res = P1Parser::parse(&myData, msg, lengthof(msg));
   if (res.err) {
-    std::cout << res.fullError(msg, msg + lengthof(msg)) << std::endl;
+    const char* toPrint = res.fullError(msg, msg + lengthof(msg));
+    std::cout << toPrint << std::endl;
+    free toPrint;
   }
 
   TEST_ASSERT_FALSE(res.err);

@@ -31,8 +31,8 @@
 
 #pragma once
 
-#include <string>  // std::string
 #include <cstring>  // memcpy
+#include <memory>  // std::unique_ptr
 
 namespace dsmr
 {
@@ -128,10 +128,12 @@ namespace dsmr
    * The start and end passed are the first and one-past-the-end
    * characters in the total parsed string. These are needed to properly
    * limit the context output.
+   *
+   * Attention! Caller is responsible to free returned pointer `free(res);`
    */
-    std::string fullError(const char *start, const char *end) const
+    const char * fullError(const char *start, const char *end) const
     {
-      std::string res;
+      char *res;
       if (this->ctx && start && end)
       {
         // Find the entire line surrounding the context
@@ -144,19 +146,28 @@ namespace dsmr
 
         // We can now predict the context string length, so let String allocate
         // memory in advance
-        res.reserve((line_end - line_start) + 2 + (this->ctx - line_start) + 1 + 2);
+        size_t length = (line_end - line_start) + 2 + (this->ctx - line_start) + 1 + 2;
+        res = reinterpret_cast<char*>(malloc(length));
+        if (!res) return res;
+        res[length - 1] = '\0';
 
         // Write the line
-        res.append(line_start, line_end - line_start);
-        res += "\r\n";
+        size_t index = 0;
+        memcpy(&res[index], line_start, line_end - line_start);
+        index = line_end - line_start;
+
+        res[index++] = '\r';
+        res[index++] = '\n';
 
         // Write a marker to point out ctx
-        while (line_start++ < this->ctx)
-          res += ' ';
-        res += '^';
-        res += "\r\n";
+        while (line_start++ < this->ctx) {
+          res[index++] = ' ';
+        }
+        res[index++] = '^';
+        res[index++] = '\r';
+        res[index++] = '\n';
       }
-      res += this->err;
+      memcpy(&res[index], this->err, strlen(this->err));
       return res;
     }
   };
