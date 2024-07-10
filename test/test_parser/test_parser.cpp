@@ -8,7 +8,7 @@ void setUp() {}
 void tearDown() {}
 
 void test_Short() {
-  const char msg[] =
+  char msg[] =
     "/KFM5KAIFA-METER\r\n"
     "\r\n"
     "1-0:1.8.1(000671.578*kWh)\r\n"
@@ -29,7 +29,7 @@ void test_Short() {
 }
 
 void test_full() {
-  const char msg[] =
+  char msg[] =
     "/KFM5KAIFA-METER\r\n"
     "\r\n"
     "1-3:0.2.8(40)\r\n"
@@ -134,7 +134,7 @@ void test_full() {
 }
 
 void test_full_be() {
-  const char msg[] =
+  char msg[] =
     "/FLU5\\253769484_A\r\n"
     "\r\n"
     "0-0:96.1.4(50217)\r\n"

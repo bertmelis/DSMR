@@ -294,24 +294,23 @@ namespace dsmr
 
     // Parse a crc value. str must point to the first of the four hex
     // bytes in the CRC.
-    static ParseResult<uint16_t> parse(const char *str, const char *end)
+    static ParseResult<uint16_t> parse(char *str, const char *end)
     {
       ParseResult<uint16_t> res;
       // This should never happen with the code in this library, but
       // check anyway
-      if (str + CRC_LEN > end)
+      // add 1 to enable inline 0-termination
+      if (str + CRC_LEN > end + 1)
         return res.fail("No checksum found", str);
 
-      // A bit of a messy way to parse the checksum, but all
-      // integer-parse functions assume nul-termination
-      char buf[CRC_LEN + 1];
-      memcpy(buf, str, CRC_LEN);
-      buf[CRC_LEN] = '\0';
+      // strtoul expects a 0-terminated string.
+      // in the input string, we expect a '\r' after the checksum
+      str[CRC_LEN] = '\0';
       char *endp;
-      uint16_t check = strtoul(buf, &endp, 16);
+      uint16_t check = strtoul(str, &endp, 16);
 
       // See if all four bytes formed a valid number
-      if (endp != buf + CRC_LEN)
+      if (endp != str + CRC_LEN)
         return res.fail("Incomplete or malformed checksum", str);
 
       res.next = str + CRC_LEN;
@@ -328,7 +327,7 @@ namespace dsmr
    * pointer in the result will indicate the next unprocessed byte.
    */
     template <typename... Ts>
-    static ParseResult<void> parse(ParsedData<Ts...> *data, const char *str, size_t n, bool unknown_error = false,
+    static ParseResult<void> parse(ParsedData<Ts...> *data, char *str, size_t n, bool unknown_error = false,
                                    bool check_crc = true)
     {
       ParseResult<void> res;
@@ -336,10 +335,10 @@ namespace dsmr
         return res.fail("Data should start with /", str);
 
       // Skip /
-      const char *data_start = str + 1;
+      char *data_start = str + 1;
 
       // Look for ! that terminates the data
-      const char *data_end = data_start;
+      char *data_end = data_start;
       if (check_crc)
       {
         uint16_t crc = _crc16_update(0, *str); // Include the / in CRC
@@ -385,12 +384,12 @@ namespace dsmr
    * checksum. Does not verify the checksum.
    */
     template <typename... Ts>
-    static ParseResult<void> parse_data(ParsedData<Ts...> *data, const char *str, const char *end,
+    static ParseResult<void> parse_data(ParsedData<Ts...> *data, char *str, const char *end,
                                         bool unknown_error = false)
     {
       ParseResult<void> res;
       // Split into lines and parse those
-      const char *line_end = str, *line_start = str;
+      char *line_end = str, *line_start = str;
 
       // Parse ID line
       while (line_end < end)
@@ -440,7 +439,7 @@ namespace dsmr
     }
 
     template <typename Data>
-    static ParseResult<void> parse_line(Data *data, const char *line, const char *end, bool unknown_error)
+    static ParseResult<void> parse_line(Data *data, char *line, const char *end, bool unknown_error)
     {
       ParseResult<void> res;
       if (line == end)
