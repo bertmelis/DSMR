@@ -177,10 +177,42 @@ namespace dsmr
         res = StringParser::parse_string(1, 20, res.next, end);
         if (res.err)
           return res;
-      } 
+      }
 
       // (04.329*kW) Which is followed by the numerical value
       return FixedField<T, _unit, _int_unit>::parse(last, end);
+    }
+  };
+
+    // Take the last value of multiple values
+  // e.g. 0-0:98.1.0(1)(1-0:1.6.0)(1-0:1.6.0)(230201000000W)(230117224500W)(04.329*kW)
+  template <typename T, const char *_unit, const char *_int_unit>
+  struct MultiFixedField : public FixedField<T, _unit, _int_unit>
+  {
+    ParseResult<void> parse(char *str, char *end)
+    {
+      ParseResult<uint32_t> res_int = NumParser::parse(0, "", str, end);
+      if (res_int.err) {
+        return res_int;
+      }
+
+      uint32_t numberOfValues = res_int.result;
+
+      ParseResult<const char*> res;
+      res.next = res_int.next;
+
+      // 2 for ObisId + 3 times for every "double timestamped value"
+      size_t i = 2 + (numberOfValues * 3);
+      while (--i)
+      {
+        res = StringParser::parse_string(1, 20, res.next, end);
+        if (res.err) {
+          return res;
+        }
+      }
+
+      // (04.329*kW) Which is followed by the numerical value
+      return FixedField<T, _unit, _int_unit>::parse(res.next, end);
     }
   };
 
@@ -199,7 +231,7 @@ namespace dsmr
     static const char *unit() { return _unit; }
   };
 
-  // A RawField is not parsed, the entire value (including any
+  // A RawField is not parsed, the entire value (without
   // parenthesis around it) is returned as a string.
   template <typename T>
   struct RawField : ParsedField<T>
@@ -574,7 +606,7 @@ namespace dsmr
     /*Maximum energy consumption from the current month*/
     DEFINE_FIELD(active_energy_import_maximum_demand_running_month, TimestampedFixedValue, ObisId(1, 0, 1, 6, 0), TimestampedFixedField, units::kW, units::W);
     /*Maximum energy consumption from the last 13 months*/
-    DEFINE_FIELD(active_energy_import_maximum_demand_last_13_months, FixedValue, ObisId(0, 0, 98, 1, 0), LastFixedField, units::kW, units::W);
+    DEFINE_FIELD(active_energy_import_maximum_demand_last_13_months, FixedValue, ObisId(0, 0, 98, 1, 0), MultiFixedField, units::kW, units::W);
 
     /* Image Core Version and checksum */
     DEFINE_FIELD(fw_core_version, FixedValue, ObisId(1, 0, 0, 2, 0), FixedField, units::none, units::none);
