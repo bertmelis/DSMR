@@ -7,7 +7,7 @@
 void setUp() {}
 void tearDown() {}
 
-void test_Short() {
+void test_short() {
   char msg[] =
     "/KFM5KAIFA-METER\r\n"
     "\r\n"
@@ -201,10 +201,34 @@ void test_be() {
   TEST_ASSERT_FLOAT_WITHIN(0.1, 8538.167, myData.gas_delivered_be.val());
 }
 
+void test_checksum() {
+  char msg[] =
+    "/KFM5KAIFA-METER\r\n"
+    "\r\n"
+    "1-0:1.8.1(000671.578*kWh)\r\n"
+    "1-0:1.7.0(00.318*kW)\r\n"
+    "!1EED\r\n";
+
+  ParsedData<
+    /* String */ identification,
+    /* FixedValue */ power_delivered
+  > myData;
+
+  ParseResult<void> res = P1Parser::parse(&myData, msg, lengthof(msg));
+  if (res.err) {
+    char* toPrint = res.fullError(msg, msg + lengthof(msg));
+    std::cout << toPrint << std::endl;
+    free(toPrint);
+  }
+
+  TEST_ASSERT_TRUE(res.err);
+}
+
 int main() {
   UNITY_BEGIN();
-  RUN_TEST(test_Short);
+  RUN_TEST(test_short);
   RUN_TEST(test_full);
   RUN_TEST(test_be);
+  RUN_TEST(test_checksum);
   return UNITY_END();
 }
