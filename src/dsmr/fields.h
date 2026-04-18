@@ -93,7 +93,7 @@ namespace dsmr
   struct FixedValue
   {
     operator float() { return val(); }
-    float val() { return _value / 1000.0; }
+    float val() { return _value / 1000.0f; }
     uint32_t int_val() { return _value; }
 
     uint32_t _value = 0;
